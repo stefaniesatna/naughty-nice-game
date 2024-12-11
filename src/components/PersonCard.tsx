@@ -14,7 +14,6 @@ interface PersonCardProps {
 
 export default function PersonCard({ person }: PersonCardProps) {
   const router = useRouter();
-  const [hasOptedIn, setHasOptedIn] = useState(person.hasOptedIn);
 
   return (
     <div className="person-card">
@@ -34,7 +33,7 @@ export default function PersonCard({ person }: PersonCardProps) {
         <span>{person.name}</span>
       </div>
       <div className="button-group">
-        {!hasOptedIn ? (
+        {!person.hasOptedIn ? (
           <button onClick={() => router.push(`/payment/${person.id}`)}>
             Opt In (50p)
           </button>
