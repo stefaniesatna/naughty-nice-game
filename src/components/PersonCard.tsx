@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Avatar from 'boring-avatars';
-import { updateOptIn } from '@/data/people';
 
 interface PersonCardProps {
   person: {
@@ -13,16 +13,8 @@ interface PersonCardProps {
 }
 
 export default function PersonCard({ person }: PersonCardProps) {
+  const router = useRouter();
   const [hasOptedIn, setHasOptedIn] = useState(person.hasOptedIn);
-
-  useEffect(() => {
-    setHasOptedIn(person.hasOptedIn);
-  }, [person.hasOptedIn]);
-
-  const handleOptIn = async () => {
-    setHasOptedIn(true);
-    await updateOptIn(person.id, true);
-  };
 
   return (
     <div className="person-card">
@@ -32,19 +24,19 @@ export default function PersonCard({ person }: PersonCardProps) {
           name={person.name}
           variant="beam"
           colors={[
-            "#D42426", // Bright Christmas red
-            "#165B33", // Forest green
-            "#E8B36C", // Warm copper
-            "#850012", // Deep burgundy red
-            "#1A472A"  // Dark pine green
+            "#D42426",
+            "#165B33",
+            "#E8B36C",
+            "#850012",
+            "#1A472A"
           ]}
         />
         <span>{person.name}</span>
       </div>
       <div className="button-group">
         {!hasOptedIn ? (
-          <button onClick={handleOptIn}>
-            Opt In
+          <button onClick={() => router.push(`/payment/${person.id}`)}>
+            Opt In (50p)
           </button>
         ) : (
           <>
