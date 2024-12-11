@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma db push && next build",
+    "postbuild": "prisma db seed",
     "start": "next start",
     "lint": "next lint",
     "db:seed": "ts-node --project scripts/tsconfig.json scripts/seed.ts"
@@ -26,5 +27,8 @@
     "eslint-config-next": "15.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node --project scripts/tsconfig.json scripts/seed.ts"
   }
 }
