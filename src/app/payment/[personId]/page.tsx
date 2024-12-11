@@ -1,12 +1,10 @@
 'use client';
-
-// todo this is a temporary comment 
 import PaymentWidget from '@/components/PaymentWidget';
 
-export default function PaymentPage() {
+export default function PaymentPage({ params }: { params: { personId: string } }) {
   return (
     <div className="payment-page">
-      <PaymentWidget />
+      <PaymentWidget personId={params.personId} />
     </div>
   );
 }

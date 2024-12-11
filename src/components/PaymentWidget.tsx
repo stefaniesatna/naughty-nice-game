@@ -10,7 +10,7 @@ declare global {
 
 import { useEffect } from 'react';
 
-export default function PaymentWidget() {
+export default function PaymentWidget({ personId }: { personId: string }) {
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://s3.eu-west-1.amazonaws.com/widgets.moneyhub.co.uk/widgets.bundle.js";
@@ -24,8 +24,9 @@ export default function PaymentWidget() {
           payeeId: "2c566e60-b6e2-4cfb-9e74-bb0c9a0085cd",
           amount: 0.50,
           reference: "Donation",
-          endToEndId: "unique-id-per-payment",
-          state: "random-unique-session-string-state"
+          endToEndId: `payment-${Date.now()}`,
+          state: `session-${Date.now()}`,
+          redirectUri: `${window.location.origin}/payment/${personId}/complete`
         }
       });
     };
@@ -34,7 +35,7 @@ export default function PaymentWidget() {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  }, [personId]);
 
   return <div id="root"></div>;
 } 
