@@ -8,11 +8,20 @@ interface PersonCardProps {
     id: string;
     name: string;
     hasOptedIn: boolean;
+    score: number;
   };
 }
 
 export default function PersonCard({ person }: PersonCardProps) {
   const router = useRouter();
+
+  const handleVoteNaughty = () => {
+    router.push(`/payment/${person.id}?action=vote`);
+  };
+
+  const handleRedeem = () => {
+    router.push(`/payment/${person.id}?action=redeem`);
+  };
 
   return (
     <div className="person-card">
@@ -21,25 +30,30 @@ export default function PersonCard({ person }: PersonCardProps) {
           size={40}
           name={person.name}
           variant="beam"
-          colors={[
-            "#D42426",
-            "#165B33",
-            "#E8B36C",
-            "#850012",
-            "#1A472A"
-          ]}
+          colors={["#D42426", "#165B33", "#E8B36C", "#850012", "#1A472A"]}
         />
-        <span>{person.name}</span>
+        <div className="person-details">
+          <span>{person.name}</span>
+          {person.hasOptedIn && (
+            <span className="score">
+              {` `}Balance: {person.score}
+            </span>
+          )}
+        </div>
       </div>
       <div className="button-group">
         {!person.hasOptedIn ? (
-          <button onClick={() => router.push(`/payment/${person.id}`)}>
+          <button onClick={() => router.push(`/payment/${person.id}?action=optin`)}>
             Opt In (50p)
           </button>
         ) : (
           <>
-            <button className="naughty-button">Vote Naughty</button>
-            <button className="redeem-button">Redeem</button>
+            <button className="naughty-button" onClick={handleVoteNaughty}>
+              Vote Naughty (50p)
+            </button>
+            <button className="redeem-button" onClick={handleRedeem}>
+              Redeem (50p)
+            </button>
           </>
         )}
       </div>

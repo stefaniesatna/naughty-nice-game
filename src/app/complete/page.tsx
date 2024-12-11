@@ -7,7 +7,7 @@ import { updateOptIn } from '@/data/people';
 export default function PaymentCompletePage() {
   const router = useRouter();
   const params = useParams();
-  const personId = params.personId as string;
+  const personId = params.endToEndId as string;
 
   useEffect(() => {
     async function handleCompletion() {

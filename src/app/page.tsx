@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PersonCard from '@/components/PersonCard';
+import Leaderboards from '@/components/Leaderboards';
 import { Person } from '@/types';
 
 export default function Home() {
@@ -37,6 +38,7 @@ export default function Home() {
           ))
         )}
       </div>
+      <Leaderboards people={people} />
     </div>
   );
 }

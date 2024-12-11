@@ -24,9 +24,8 @@ export default function PaymentWidget({ personId }: { personId: string }) {
           payeeId: "2c566e60-b6e2-4cfb-9e74-bb0c9a0085cd",
           amount: 0.50,
           reference: "Donation",
-          endToEndId: `payment-${Date.now()}`,
+          endToEndId: personId,
           state: `session-${Date.now()}`,
-          redirectUri: `${window.location.origin}/payment/${personId}/complete`
         }
       });
     };
