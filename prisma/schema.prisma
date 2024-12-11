@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Person {
+  id        String  @id
+  name      String
+  hasOptedIn Boolean @default(false)
+  votes     Vote[]
+}
+
+model Vote {
+  id       String  @id @default(cuid())
+  type     String  // "naughty" or "redeem"
+  personId String
+  person   Person  @relation(fields: [personId], references: [id])
+} 
